@@ -1,0 +1,38 @@
+---
+title: "Reading data from the web "
+author: "My An Huynh"
+date: "2024-10-10"
+output: github_document
+---
+```{r setup, include=FALSE}
+library(tidyverse)
+library(rvest)
+library(httr)
+```
+
+```{r}
+url = "http://samhda.s3-us-gov-west-1.amazonaws.com/s3fs-public/field-uploads/2k15StateFiles/NSDUHsaeShortTermCHG2015.htm"
+drug_use_html = read_html(url)
+
+```
+
+Get the pieces I actually need 
+
+```{r}
+marj_use_df =
+  drug_use_html |> 
+  html_table() |> 
+  first() |> 
+  slice(-1)
+```
+
+Practice 
+Title was imported as first row in the data. 
+```{r}
+url = "https://www.bestplaces.net/cost_of_living/city/new_york/new_york"
+cost_living = read_html(url)
+
+cost_living |> 
+  html_table(header = TRUE)
+```
+
